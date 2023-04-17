@@ -5,7 +5,7 @@ def send(user_email):
     send_mail(
         'Рассылка',
         'News',
-        'skillfactor@yandex.ru',
+        'Angry-Medic@yandex.ru',
         [user_email],
         fail_silently=False,
     )

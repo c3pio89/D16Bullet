@@ -1,7 +1,7 @@
 from django_filters import FilterSet, CharFilter, ModelChoiceFilter, DateFilter, DateRangeFilter
 from django.forms import TextInput, Select, DateInput
 from .models import Declaration, Category
-from BulletinBoard.users.models import CustomUser
+from users.models import CustomUser
 
 
 class DaclarationFilter(FilterSet):

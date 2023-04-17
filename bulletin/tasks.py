@@ -5,7 +5,7 @@ from django.utils.timezone import localtime
 from django.conf import settings
 from datetime import datetime, timedelta
 from .models import Declaration
-from BulletinBoard.users.models import CustomUser
+from users.models import CustomUser
 
 
 @shared_task

@@ -1,9 +1,15 @@
-from django.contrib.auth.models import User
-from django.views.generic.edit import CreateView
-from .models import RegisterUser
 
+from django.urls import path
+from django.contrib.auth.views import LoginView, LogoutView
+from .views import NewsRegisterView
 
-class NewsRegisterView(CreateView):
-    model = User
-    form_class = RegisterUser
-    success_url = '/sign/login'
+urlpatterns = [
+    path('login/',
+         LoginView.as_view(template_name='sign/login.html'),
+         name='login'),
+    path('logout/',
+         LogoutView.as_view(template_name='sign/logout.html'),
+         name='logout'),
+    path('signup/', NewsRegisterView.as_view(template_name='sign/signup.html'),
+         name='signup'),
+]
