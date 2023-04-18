@@ -1,18 +1,12 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
-from django.core.cache import cache
-from django.core.paginator import Paginator
-from django.shortcuts import redirect
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
-from django.core.mail import send_mail
-from BulletinBoard.settings import DEFAULT_FROM_EMAIL
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import Declaration, Category, Reviews, Author
 from .filters import DaclarationFilter
 from .forms import DeclarationForm, AddReviewsForm
+from .models import Declaration, Category, Reviews
 
 
 class DeclarationList(ListView):

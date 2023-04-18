@@ -1,8 +1,12 @@
+from idlelib.pyshell import HOST
+
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
 from .models import Declaration, Reviews
-from users.models import CustomUser
 from django.urls import reverse_lazy
+from .tasks import send_mail_new_response
+from .tasks import send_mail_accept_response
+
 
 
 @receiver(m2m_changed, sender=Declaration.response.through)
