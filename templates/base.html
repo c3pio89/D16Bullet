@@ -13,41 +13,51 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" />
     </head>
-    <body id="page-top">
+    <body>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                      <li class="nav-item">
-                        <a class="nav-link" href="{% url 'mypage' %} ">Profile</a>
+                        <li class="nav-item">
+                        <a class="nav-link" href="/">Главная страница</a>
                       </li>
+                        {% if request.user.is_authenticated %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'mypage' %} ">Профиль воина</a>
+                      </li>
+                        {% endif %}
+                        {% if request.user.is_authenticated %}
                       <li class="nav-item">
                         <a class="btn btn-primary float-right" href="{% url 'create' %}">Добавить обявленние</a>
                       </li>
+                        {% endif %}
+                        {% if request.user.is_authenticated %}
                       <li class="nav-item">
-                         <a class="btn btn-primary float-right" href="{% url 'contact' %}">Sub to newsletter</a>
+                         <a class="btn btn-primary float-right" href="{% url 'contact' %}">Подписаться на рассылку</a>
                       </li>
+                        {% endif %}
+                        {% if request.user.is_superuser %}
                       <li class="nav-item">
-                        <a class="nav-link" href="/admin">Admin</a>
+                        <a class="nav-link" href="/admin">Админка</a>
                       </li>
+                        {% endif %}
                       <li class="nav-item">
                         <a class="btn btn-primary float-right" href="{% url 'search' %}">Поиск по статьям</a>
                       </li>
                       <li class="nav-item">
                         {% if user.is_authenticated %}
                           <span>{{user.username}}</span>
-                          <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                          <a class="nav-link" href="{% url 'account_logout' %}">Выйти из аккаунта</a>
                         {% else %}
-                          <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-                          <a class="nav-link" href="{% url 'account_signup' %}">Registration</a>
+                          <a class="nav-link" href="{% url 'account_login' %}">Войти в аккаунт</a>
+                          <a class="nav-link" href="{% url 'account_signup' %}">Регистрация</a>
                         {% endif %}
                       </li>
 
@@ -57,7 +67,7 @@
         </nav>
 
         <!-- Masthead-->
-                 <header class="masthead" style="background-image: url({%static 'img/mmorpg.jpg'%})">
+                 <header class="masthead" style="background-image: url({%static 'img/NorthWar.png'%})">
                     <div class="overlay"></div>
                     <div class="container">
                       <div class="row">

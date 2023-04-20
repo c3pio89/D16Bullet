@@ -19,14 +19,9 @@ Add reviews
             </h3>
             <h4> Текст отклика: "{{reviewdetail.review}}"</h4>
             <h5> Добавлено {{reviewdetail.review_date}}</h5>
-            <h6> <form method="post">
-                {% csrf_token %}
-                <button type="submit" name="accept_response"  class="btn btn-primary float-right"> Принять</button>
-
-            </form>
-
-                <a class="btn btn-primary float-right" href="{% url 'delete_review' reviewdetail.id %}">Удалить</a>
-
+            <h6>
+                <a class="btn btn-success" href="{% url 'comments_accept' i.id %}" role="button">Принять</a>
+                <a class="btn btn-danger" href="{% url 'comments_delete' i.id %}" role="button">Удалить</a>
             </h6>
 
 

@@ -39,6 +39,7 @@ class Category(models.Model):
                   (SpellMasters, 'Мастера заклинаний')]
 
     name = models.CharField("Категория", max_length=25, choices=Categories, default=tanks, unique=True)
+    image = models.ImageField('Изображение', upload_to="image/categoryimage/", blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -50,16 +51,16 @@ class Category(models.Model):
 
 class Declaration(models.Model):
     """Обявления"""
-    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name='Пользыватель', on_delete=models.CASCADE)
+    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name='Пользователь', on_delete=models.CASCADE)
     title = models.CharField('Заголовок', max_length=50)
     text = models.TextField('Описание')
     category = models.ForeignKey(Category, verbose_name='категория', on_delete=models.CASCADE)
-    date_create = models.DateTimeField(auto_now_add=True, verbose_name='Дата пуболткации')
+    date_create = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     response = models.ManyToManyField(AUTH_USER_MODEL, related_name='post_response', )
     accepted_response = models.ManyToManyField(AUTH_USER_MODEL, related_name='post_accepted_response', )
 
     file = models.FileField('Файл', upload_to="bulletin_file/", blank=True, null=True)
-    image = models.ImageField('Изобнажение', upload_to="image/", blank=True, null=True)
+    image = models.ImageField('Изображение', upload_to="image/", blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('DeclarationDetail', kwargs={'pk': self.pk})
@@ -75,9 +76,9 @@ class Declaration(models.Model):
 class Reviews(models.Model):
     '''Отзывы'''
 
-    declaration = models.ForeignKey(Declaration, verbose_name='обявление', related_name='review_declaration',
+    declaration = models.ForeignKey(Declaration, verbose_name='объявление', related_name='review_declaration',
                                     on_delete=models.CASCADE, null=True)
-    commentator = models.ForeignKey(AUTH_USER_MODEL, verbose_name='коментатор', on_delete=models.CASCADE)
+    commentator = models.ForeignKey(AUTH_USER_MODEL, verbose_name='комментатор', on_delete=models.CASCADE)
     review = models.TextField('Отклик', max_length=3000)
     review_date = models.DateTimeField(auto_now_add=True)
 
@@ -90,3 +91,4 @@ class Reviews(models.Model):
     class Meta:
         verbose_name = "Отклик"
         verbose_name_plural = "Отклики"
+

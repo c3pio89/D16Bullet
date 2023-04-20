@@ -1,34 +1,17 @@
-from idlelib.pyshell import HOST
-
-from django.db.models.signals import m2m_changed
+from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import Declaration, Reviews
-from django.urls import reverse_lazy
-from .tasks import send_mail_new_response
-from .tasks import send_mail_accept_response
+from .models import Reviews
 
-
-
-@receiver(m2m_changed, sender=Declaration.response.through)
-def notify_new_response(sender, instance, **kwargs):
-    """отправить письмо автору поста после отклика"""
-    if kwargs['action'] == "post_add":
-        username = instance.user.username
-        email = instance.user.email
-        content = instance.title
-        link = reverse_lazy('mypage')
-        link = HOST + f'{link}'
-        send_mail_new_response.apply_async([email, username, link, content], countdown=5)
-
-
-@receiver(m2m_changed, sender=Declaration.accepted_response.through)
-def notify_accept_response(sender, instance, **kwargs):
-    """отправить письмо юзеру оставившего отклик"""
-    if kwargs['action'] == "post_add":
-        user = instance.accepted_response.all().order_by('-id')[0]
-        username = user.username
-        email = user.email
-        content = instance.title
-        link = reverse_lazy('declaration', kwargs={'pk': instance.id})
-        link = HOST + f'{link}'
-        send_mail_accept_response.apply_async([email, username, link, content], countdown=5)
+@receiver(post_save, sender=Reviews)
+def notify_user_post(sender, instance, created, **kwargs):
+    if created:
+        post_author = instance.declaration.user
+        post_author.email_user(
+            subject=f'Новый комментарий к вашему объявлению {instance.declaration.title}',
+            message=instance.review,
+        )
+    post_author = instance.declaration.user
+    post_author.email_user(
+        subject=f'{instance.declaration.user} принял ваш комментарий',
+        message=f'Комментарий: {instance.review}',
+    )

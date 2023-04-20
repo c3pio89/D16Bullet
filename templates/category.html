@@ -9,6 +9,11 @@ Category
 {% endblock title2 %}
 
 {% block content %}
+<style>
+    .masthead{
+    background-image: url('/media/{{category_name.image}}') !important;
+    }
+</style>
 {% if DeclarationCategory %}
  {% for post in category %}
 
@@ -20,6 +25,7 @@ Category
             </h2>
             <h3 class="post-subtitle">
               {{post.text|truncatechars:50}}
+                <img class="img-fluid" src="media/image/categoryimage/{{DeclarationDetail.image}}" alt="">
             </h3>
             </a>
 
