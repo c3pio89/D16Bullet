@@ -1,8 +1,8 @@
 
 from django.urls import path
 from .views import DeclarationList, DeclarationCategory, DeclarationDetail, DeclarationSearch, DeclarationCreate, \
-    DeclarationUpdateView, DeclarationDeleteView, AddReviews, ReviewDetail
-from users.views import comments_accept, comments_delete
+    DeclarationUpdateView, DeclarationDeleteView, AddReviews, ReviewDetail, ReviewDelete, user_response
+
 
 urlpatterns = [
     path('', DeclarationList.as_view(), name='posts'),
@@ -14,6 +14,6 @@ urlpatterns = [
     path('delete/<int:pk>', DeclarationDeleteView.as_view(), name='delete'),
     path('addreviews/<int:pk>', AddReviews.as_view(), name='addreviews'),
     path('mypage/<int:pk>', ReviewDetail.as_view(), name='review'),
-    path('user_posts_comments/accept/<int:pk>', comments_accept, name='comments_accept'),
-    path('user_posts_comments/delete/<int:pk>', comments_delete, name='comments_delete'),
+    path('addreviews/<int:pk>', user_response, name='post_response'),
+    path('delete_review/<int:pk>', ReviewDelete.as_view(), name='delete_review'),
 ]

@@ -132,8 +132,8 @@ class ReviewDelete(DeleteView):
 
 @login_required(login_url='/accounts/login/')
 def user_response(request, pk):
-    """отклик на пост"""
-    post = get_object_or_404(Declaration, id=request.POST.get('post_response'))
+    print(request)
+    post = get_object_or_404(Declaration, id=request.id)
     post.response.add(request.user)
     messages.info(request, 'Отклик успешно отправлен!')
-    return redirect('post_detail', pk=pk)
+    return redirect('mypage', pk=pk)

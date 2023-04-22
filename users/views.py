@@ -24,10 +24,10 @@ class UserPage(LoginRequiredMixin, ListView):
             context['reviews'].append(Reviews.objects.filter(declaration=post.id))
         return context
 
-    #def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         print("1")
         # Принять отклик
-        """if request.POST.get('accept_response'):
+        if request.POST.get('accept_response'):
             accept_data = request.POST.get('accept_response').split(' ')
             post = Declaration.objects.get(id=accept_data[-1])
             user = CustomUser.objects.get(username=accept_data[0])
@@ -38,19 +38,5 @@ class UserPage(LoginRequiredMixin, ListView):
             post = Declaration.objects.get(id=accept_data[-1])
             user = CustomUser.objects.get(username=accept_data[0])
             post.response.remove(user)
-            messages.info(request, 'Вы отклонили отклик!')"""
-        #return redirect('mypage')
-
-@login_required
-def comments_accept(request, **kwargs):
-    response = Declaration.objects.get(id=kwargs.get('pk'))
-    response.status = True
-    response.save()
-    return redirect(request.META.get('HTTP_REFERER'))
-
-
-@login_required
-def comments_delete(request, **kwargs):
-    response = Declaration.objects.get(id=kwargs.get('pk'))
-    response.delete()
-    return redirect(request.META.get('HTTP_REFERER'))
+            messages.info(request, 'Вы отклонили отклик!')
+        return redirect('mypage')
