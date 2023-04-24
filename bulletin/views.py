@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
+from django.contrib import messages
 from .filters import DaclarationFilter
 from .forms import DeclarationForm, AddReviewsForm
 from .models import Declaration, Category, Reviews
@@ -132,8 +132,7 @@ class ReviewDelete(DeleteView):
 
 @login_required(login_url='/accounts/login/')
 def user_response(request, pk):
-    print(request)
-    post = get_object_or_404(Declaration, id=request.id)
+    post = get_object_or_404(Declaration, id=pk)
     post.response.add(request.user)
     messages.info(request, 'Отклик успешно отправлен!')
-    return redirect('mypage', pk=pk)
+    return redirect('mypage')
