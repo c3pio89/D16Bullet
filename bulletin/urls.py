@@ -14,6 +14,6 @@ urlpatterns = [
     path('delete/<int:pk>', DeclarationDeleteView.as_view(), name='delete'),
     path('addreviews/<int:pk>', AddReviews.as_view(), name='addreviews'),
     path('mypage/<int:pk>', ReviewDetail.as_view(), name='review'),
-    path('addreviews/<int:pk>', user_response, name='post_response'),
+    path('accept/<int:pk>', user_response, name='post_response'),
     path('delete_review/<int:pk>', ReviewDelete.as_view(), name='delete_review'),
 ]
