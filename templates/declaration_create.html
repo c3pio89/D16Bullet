@@ -15,7 +15,11 @@ Create daclaration
  <h3>Добавление стати:</h3>
  <form method="POST" enctype="multipart/form-data">
      {% csrf_token %}
-     {{ form }}
+     Категория  {{ form.category }} <br>
+     Заголовок  {{ form.title }} <br>
+     Текст  {{ form.text }} <br>
+     Файл  {{ form.file }} <br>
+     Картинка  {{ form.image }} <br>
      <input class="btn btn-primary float-right" type="submit" value="Добавить новость">
  </form>
  {% endblock content %}

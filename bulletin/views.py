@@ -83,6 +83,12 @@ class DeclarationCreate(LoginRequiredMixin, CreateView):
     login_url = '/accounts/login/'
     success_url = '/'
 
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.user = self.request.user
+        instance.save()
+        return super().form_valid(form)
+
 
 class DeclarationUpdateView(LoginRequiredMixin, UpdateView):
     model = Declaration

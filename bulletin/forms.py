@@ -5,7 +5,7 @@ from .models import Declaration, Reviews
 class DeclarationForm(ModelForm):
     class Meta:
         model = Declaration
-        fields = ['user', 'category', 'title', 'text', 'file', 'image']
+        fields = ['category', 'title', 'text', 'file', 'image']
         widgets = {
             'text': Textarea(attrs={
                 'class': 'form-control',
