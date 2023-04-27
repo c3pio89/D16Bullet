@@ -27,7 +27,7 @@ def send_mail_accept_response(email, username, link, content):
     html_content = render_to_string('templates/mailing/mailing_accept_response.html',
                                     {'username': username, 'link': link, 'content': content})
     msg = EmailMultiAlternatives(
-        subject=f'Уведомление о новом отклике',
+        subject=f'Отклик принят',
         from_email=settings.DEFAULT_FROM_EMAIL,
         to=[email]
     )

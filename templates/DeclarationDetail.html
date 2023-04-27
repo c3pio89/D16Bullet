@@ -17,7 +17,7 @@ Category
             <h3 class="post-subtitle">
               {{DeclarationDetail.text}}
                 <img class="img-fluid" src="media/{{DeclarationDetail.image}}" alt="">
-                <a href="media/{{DeclarationDetail.file}}"> {{DeclarationDetail.file | truncatechars:-5}} </a>
+                <a href="media/{{DeclarationDetail.file}}"> {{DeclarationDetail.file}} </a>
             </h3>
             <h4> {{reviews.review}}</h4>
 
@@ -35,7 +35,6 @@ Category
 
                 <input class="btn btn-primary float-right" type="submit" name="response" value="Добавить">
                 </form>
-                <a class="btn btn-primary float-right" href="{% url 'addreviews' DeclarationDetail.id %}">Добавить отклик</a>
                 {% endif %}
 
             </h6>

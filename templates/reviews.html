@@ -19,7 +19,7 @@ Add reviews
             </h3>
             <h4> Текст отклика: "{{reviewdetail.review}}"</h4>
             <h5> Добавлено {{reviewdetail.review_date}}</h5>
-            <h6> <form method="get" action="/accept/{{reviewdetail.commentator.id}}">
+            <h6> <form method="post" action="/accept/{{reviewdetail.commentator.id}}">
                 {% csrf_token %}
                 <input type="hidden" name="id" value={{reviewdetail.commentator.id}} >
                 <button type="submit" name="post_response"  class="btn btn-primary float-right"> Принять</button>

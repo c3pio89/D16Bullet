@@ -4,19 +4,19 @@ from .models import Reviews, Declaration
 
 
 @receiver(post_save, sender=Reviews)
-def notify_user_post(sender, instance, created, **kwargs):
-    print("1")
+def notify_user_post_accept(sender, instance, created, **kwargs):
+    print("12")
     if created:
         post_author = instance.declaration.user
         post_author.email_user(
             subject=f'Новый комментарий к вашему объявлению {instance.declaration.title}',
             message=instance.review,
         )
-    post_author = instance.declaration.user
-    post_author.email_user(
+        post_author = instance.declaration.user
+        post_author.email_user(
         subject=f'{instance.declaration.user} принял ваш комментарий',
         message=f'Комментарий: {instance.review}',
-    )
+        )
 
 @receiver(post_save, sender=Declaration)
 def notify_user_post(sender, instance, created, **kwargs):
@@ -24,6 +24,6 @@ def notify_user_post(sender, instance, created, **kwargs):
     if created:
         post_author = instance.user
         post_author.email_user(
-            subject=f'Новый запрос на отклик {instance.title}',
-            message=f'Добавили новый запрос на отклик'
+            subject=f'Новое объявление {instance.title}',
+            message=f'Добавили новое объявление'
         )
